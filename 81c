@@ -1,17 +1,84 @@
 pipeline
 {
     agent any
+    tools {
+        maven 'maven 3.8.5'  // Ensure this matches the name you provided in Global Tool Configuration
+        }
     stages {
 
         stage('Build') {
             steps {
                 echo 'Building the project...'
                 // Example: Use Maven to build
-                
+                sh 'mvn clean verify'
+            }
+        }
+
+        stage('Unit and Integration Tests') {
+            steps {
+                echo 'Running unit and integration tests...'
+                // Example: JUnit and integration tests
+                sh 'mvn test'
+            }
+        }
+
+        stage('Code Analysis') {
+            steps {
+                echo 'Analyzing code with SonarQube...'
+                // Example: Run SonarQube scanner
+                // Requires SonarQube plugin and server configured
+                withSonarQubeEnv('SonarQubeServer') {
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
+
+        stage('Security Scan') {
+            steps {
+                echo 'Running security scan...'
+                // Example: OWASP Dependency-Check
+                sh '''
+                dependency-check.sh --project my-app \
+                                    --scan ./ \
+                                    --format HTML \
+                                    --out dependency-check-report
+            
+                '''
+            }
+            
+        }
+
+        stage('Deploy to Staging') {
+            steps {
+                echo 'Deploying to staging environment...'
+                // Replace with your deployment method (e.g., SCP, Ansible)
+                sh 'scp target/my-app.jar $STAGING_SERVER:/opt/app/'
+            }
+        }
+
+        stage('Integration Tests on Staging') {
+            steps {
+                echo 'Running integration tests on staging...'
+                // Example: Postman collection
+                sh 'newman run tests/integration-tests.postman_collection.json --env-var baseUrl=http://staging-server-ip'
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                echo 'Deploying to production...'
+                // Replace with your production deployment strategy
+                sh 'scp target/my-app.jar $PRODUCTION_SERVER:/opt/app/'
             }
         }
     }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed. Investigate errors above.'
+        }
+    }
 }
-
-
-        
