@@ -11,8 +11,9 @@ pipeline
                 echo 'Building the project...'
                 // Example: Use Maven to build
                 sh '''
-        
-          mvn clean install
+
+                    mvn clean package
+                    mvn clean install
     ''' 
             }
         }
