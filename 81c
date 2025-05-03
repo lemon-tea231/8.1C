@@ -10,11 +10,9 @@ pipeline
             steps {
                 echo 'Building the project...'
                 // Example: Use Maven to build
-                sh '''
-
-                    mvn clean package
-                    
-    ''' 
+                dir('otherdirectory') {  // Ensure the path is correct
+                    sh 'mvn clean package'
+                }
             }
         }
 
