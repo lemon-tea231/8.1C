@@ -39,8 +39,9 @@ pipeline
                                     --scan ./ \
                                     --format HTML \
                                     --out dependency-check-report
-                '''
             }
+                '''
+            
         }
 
         stage('Deploy to Staging') {
@@ -76,5 +77,4 @@ pipeline
             echo 'Pipeline failed. Investigate errors above.'
         }
     }
-}
 }
