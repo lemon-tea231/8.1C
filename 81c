@@ -10,7 +10,10 @@ pipeline
             steps {
                 echo 'Building the project...'
                 // Example: Use Maven to build
-                bat ' mvn -f ABC/pom.xml clean install'  
+                sh '''
+          cd otherdirectory
+          mvn clean install
+    ''' 
             }
         }
 
