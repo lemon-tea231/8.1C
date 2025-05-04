@@ -1,22 +1,21 @@
 pipeline 
 {
     agent any
-    tools 
-    {
-        maven "maven 3.8.5"
-
-    }
-    stages
-    {
-        stage('Build')
-        {
-            steps 
+    
+    stages {
+        stage('Build') 
             {
-                echo "Building the project..."
-                sh "mvn clean package"
-
+                stpes 
+                    {
+                        echo "Building..."
+                    }
+                post {
+                    success {
+                        mail to: "seneca061123@gmail.com"
+                        subject: " Build status email"
+                        body: "Build successfully"
+                    }
+                }
             }
-            
-        }
     }
 }
