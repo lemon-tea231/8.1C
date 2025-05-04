@@ -11,7 +11,7 @@ pipeline-maven
                 echo 'Building the project...'
                 // Example: Use Maven to build
                 dir('otherdirectory') {  // Ensure the path is correct
-                    sh 'mvn clean package'
+                    sh 'mvn clean verify'
                 }
             }
         }
