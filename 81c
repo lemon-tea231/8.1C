@@ -11,8 +11,9 @@ pipeline
                     }
                 post {
                     always {
-                        subject: " Build status email",
                         mail to: "seneca061123@gmail.com",
+                        
+                        subject: " Build status email",
                         
                         body: "Build successfully"
                     }
