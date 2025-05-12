@@ -19,5 +19,19 @@ pipeline
                     }
                 }
             }
+        stage('Testing')
+            {
+                steps
+                    {
+                        echo "Testing....Testing......"
+                    }
+                post {
+                    sucess {
+                            mail to: "seneca061123@gmail.com",
+                            subject:"Testing status email",
+                            body:"The test successed"
+                    }
+                }
+            }
     }
 }
