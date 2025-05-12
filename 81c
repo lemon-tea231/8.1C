@@ -18,7 +18,7 @@ pipeline
                         body: "Build successfully"
                     }
                 }
-            
+            }
         
             
             stage('Testing')
@@ -33,7 +33,7 @@ pipeline
                             subject:"Testing status email",
                             body:"The test successed"
                     }
-                }
+                
 }
 
 }
